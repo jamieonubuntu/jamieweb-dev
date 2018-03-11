@@ -28,7 +28,7 @@
 &#x2523&#x2501&#x2501 <a href="#why">What is wrong with TLSv1 and TLSv1.1?</a>
 &#x2523&#x2501&#x2501 <a href="#checking-support">Checking for TLSv1 and TLSv1.1 Support</a>
 &#x2523&#x2501&#x2501 <a href="#browser-compatibility">Browser Compatibility</a>
-&#x2523&#x2501&#x2501 <a href="#logs">Logging TLS Protocol Versions In Use</a>
+&#x2523&#x2501&#x2501 <a href="#logs">Logging TLS Protocol Versions in Use</a>
 &#x2523&#x2501&#x2501 <a href="#buying-namecoin">Disabling TLSv1 and TLSv1.1 in Apache</a>
 &#x2517&#x2501&#x2501 <a href="#registering-domain">Conclusion</a></pre>
 
@@ -40,11 +40,53 @@
     <p>It is also important to note that the new PCI DSS requirements state that <a href="https://blog.pcisecuritystandards.org/are-you-ready-for-30-june-2018-sayin-goodbye-to-ssl-early-tls" target="_blank">TLSv1 must be disabled by 30th June 2018</a> in order to remain compliant.</p>
 
     <h2 id="checking-support">Checking for TLSv1 and TLSv1.1 Support</h2>
-    <p>You can easily check whether your website supports TLSv1 and TLSv1.1 using <a href="https://nmap.org/" target="_blank">Nmap</a>. This is available in the default repositories on most Linux distributions, and is also available on BSD, macOS and Windows.</p>
+    <p>You can easily check whether your server supports TLSv1 and TLSv1.1 using <a href="https://nmap.org/" target="_blank">Nmap</a>. This is available in the default repositories on most Linux distributions, and is also available on BSD, macOS and Windows.</p>
     <p>Nmap has a built-in script to enumerate the available ciphers and protocols:</p>
     <pre>$ nmap -p 443 --script ssl-enum-ciphers jamieweb.net</pre>
-    <p>This wil output all of the supported SSL/TLS protocol versions and ciphers.</p>
+    <p>This will output all of the supported SSL/TLS protocol versions and ciphers.</p>
     <p>Alternatively, you can use the <a href="https://www.ssllabs.com/ssltest/index.html" target="_blank">Qualys SSLLabs Scanner</a>.</p>
+
+    <h2 id="browser-compatibility">Browser Compatibility</h2>
+    <p>The main downside to disabling TLSv1 and TLSv1.1 is that you lose support for some older browsers.</p>
+    <p>TLSv1 is supported in essentially all web browsers since the early 2000's.</p>
+    <p>TLSv1.1 support was added in:</p>
+    <ul>
+        <li><b>Chrome 22</b>: 31st July 2012</li>
+        <li><b>Firefox 24*</b>: 6th August 2013</li>
+        <li><b>Safari 7</b>: 27th October 2013</li>
+        <li><b>iOS 5</b>: March 7th 2012</li>
+        <li><b>Opera 12.1</b>: 5th November 2012</li>
+        <li><b>Internet Explorer 11*</b>: 17th October 2013</li>
+        <li><b>Microsoft Edge</b>: All Versions Supported</li>
+    </ul>
+    <p>...and TLSv1.2 support was added in:</p>
+    <ul>
+        <li><b>Chrome 30</b>: 20th August 2013</li>
+        <li><b>Firefox 27*</b>: 4th Febuary 2014</li>
+        <li><b>Safari 7</b>: 22nd October 2013</li>
+        <li><b>iOS 5</b>: 7th March 2012</li>
+        <li><b>Opera 17*</b>: 7th October 2013</li>
+        <li><b>Internet Explorer 11*</b>: 17th October 2013</li>
+        <li><b>Microsoft Edge</b>: All Versions Supported</li>
+    </ul>
+    <p>*: <i>Some browsers supported TLSv1.1 and TLSv1.2 in versions earlier than those stated above, but it was disabled by default. If a legitimate user is still using such a dated browser, it is unlikely that they would have enabled support for the newer TLS protocols. One possible exeption to this is a managed organisation environment where out of date browsers are used, but support for the newer protocols is enabled via a centralised management tool such as Group Policy.</i></p>
+    <p>Browser Compatibility Information Source: <a href="https://caniuse.com/#feat=tls1-2" target="_blank" rel="noopener">caniuse.com</a> - Please see their fantastic browser compatibility reference pages on <a href="https://caniuse.com/#feat=tls1-1" target="_blank" rel="noopener">TLSv1.1</a> and <a href="https://caniuse.com/#feat=tls1-2" target="_blank" rel="noopener">TLSv1.2</a>.</p>
+    <p>Losing compatibility with most of these browsers is not a major problem since their usage shares are now extremely low. The only one that looks slightly concerning is Internet Explorer 10, since many unpatched versions of Windows 7 still use this browser, however according to the stats above its usage share is only 0.12%.</p>
+
+    <h2 id="logs">Logging TLS Protocol Versions in Use</h2>
+    <p>Before disabling TLSv1 and TLSv1.1, it is important to assess the impact that this could have on your users. The best way to do this is by monitoring the web server log files directly, as this gives the most raw results.</p>
+    <p>In Apache, this is extremely easy to configure using the CustomLog directive. Add the following to the virtual host that you want to monitor, and the TLS protocol version will be logged for all requests:</p>
+    <pre>CustomLog ${APACHE_LOG_DIR}/tls.log "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x"</pre>
+    <p>You can also optionally log the user agent string in order to help identify which client software is still using older TLS protocol versions:</p>
+    <pre>CustomLog ${APACHE_LOG_DIR}/tls.log "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%{User-agent}i\""</pre>
+    <p><i>As far as I know, this configuration does not work when specified in a global configuration file, it has to be directly in the virtual host configuration. I'm not sure why this is, but when defining the CustomLog globally, it doesn't seem to log the TLS information correctly even when there are definitely TLS requests reaching the server.</i></p>
+    <p>Leave this running for a while in order to get a good set of sample data.</p>
+    <p>You can then check the total number of requests, as well as the number of requests that did not use TLSv1.2:</p>
+    <pre>$ wc -l tls.log
+$ grep -v "TLSv1.2" tls.log | wc -l</pre>
+    <p>Using the results from the above commands, you can calculate the percentage of requests that did not use TLSv1.2.</p>
+    <p>I left my log running for around 20 hours, and in total there were just over 100,000 TLS requests. Out of these, only 0.078% were not using TLSv1.2.</p>
+    <p>It is important to note that the data for my site is probably very biased, as this is a technical site with likely technical visitors. However that is OK, as I wanted to know the potential impact on my site, rather than on the internet as a whole.</p>
 </div>
 
 <?php include "footer.php" ?>

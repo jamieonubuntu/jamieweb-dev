@@ -29,7 +29,7 @@
 &#x2523&#x2501&#x2501 <a href="#checking-support">Checking for TLS 1.0 and TLS 1.1 Support</a>
 &#x2523&#x2501&#x2501 <a href="#browser-compatibility">Browser Compatibility</a>
 &#x2523&#x2501&#x2501 <a href="#logs">Logging TLS Protocol Versions in Use in Apache</a>
-&#x2523&#x2501&#x2501 <a href="#disabling">Disabling TLS 1.0 and TLS 1.1 in Apache</a></pre>
+&#x2517&#x2501&#x2501 <a href="#disabling">Disabling TLS 1.0 and TLS 1.1 in Apache</a></pre>
 
     <h2 id="why">What is wrong with TLS 1.0 and TLS 1.1?</h2>
     <p>These versions of the Transport Layer Security (TLS) protocol were first defined in January 1999 (<a href="https://www.ietf.org/rfc/rfc2246.txt" target="_blank">RFC2246</a>) and April 2006 (<a href="https://www.ietf.org/rfc/rfc4346.txt" target="_blank">RFC4346</a>) respectively, and since then various issues and vulnerabilities have been discovered.</p>
@@ -85,6 +85,8 @@
 $ grep -v "TLSv1.2" tls.log | wc -l</pre>
     <p>Using the results from the above commands, you can calculate the percentage of requests that did not use TLSv1.2.</p>
     <p>I left my log running for around 20 hours, and in total there were just over 100,000 TLS requests. Out of these, only 0.078% were not using TLS 1.2.</p>
+    <img width="1000px" src="tls-chart.png">
+    <p>As you can see above, the columns for TLS 1.0 and TLS 1.1 are barely even visible.</p>
     <p>It is important to note that the data for my site is probably very biased, as this is a technical site with likely technical visitors. However that is OK, as I wanted to know the potential impact on my site, rather than on the internet as a whole.</p>
 
     <h2 id="disabling">Disabling TLS 1.0 and TLS 1.1 in Apache</h2>

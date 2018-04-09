@@ -1,0 +1,740 @@
+.gravitylabel {
+    display: inline-block;
+    margin-top: 29px; /*ADDED*/
+    width: 275px;
+    height: 275px;
+    background: url(/images/identicon.png);
+}
+
+div.sideitems {
+    margin: 18px 0px;
+}
+
+div.sideitem h4 {
+    display: inline-block;
+    margin: 14px 0px;
+}
+
+div.tops h4 {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+/*REMOVE*/
+div.sidebar h4.sideitem-mar-bottom {
+    margin-bottom: 19px
+}
+
+/*REMOVE*/
+div.sideitem-b {
+    width: 270px;
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("/fonts/opensans/OpenSans-Regular.ttf");
+}
+
+@media (max-width: 1050px) {
+    nav {
+        width: 1050px;
+    }
+}
+
+@media (max-width: 1400px) {
+    p.onionlink {
+        line-height: 30px;
+    }
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background-color: #f8f8f8;
+    margin: 0px;
+}
+
+h1,h2,h3,h4,h5,h6,p,a,li,td {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+nav {
+    background-color: #59a2c7;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+nav a:visited {
+    text-decoration: none;
+}
+
+div.navbar {
+    margin: 0 auto;
+    height: 51px;
+    width: 1000px;
+}
+
+div.navbar h5,div.navbar h4 {
+    margin: 0px;
+}
+
+div.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #59a2c7;
+}
+
+div.navbar li {
+    float: left;
+}
+
+div.navbar li a {
+    display: block;
+    padding: 16px;
+    padding-top: 17px;
+}
+
+div.navbar li a:hover {
+    background-color: #4c4c4c;
+    text-decoration: underline;
+}
+
+div.navbar li.navlogo a {
+    padding: 8px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+div.navbar li.navlogo a:hover {
+    background-color: #59a2c7;
+}
+
+div.navbar div.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e9e9e9;
+    width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+div.navbar div.dropdown-content a {
+    color: #000000;
+    padding: 16px;
+}
+
+div.navbar div.dropdown-content a:hover {
+    color: #ffffff;
+    text-decoration: none
+}
+
+div.navbar li.dropdown:hover div.dropdown-content {
+    display: block;
+}
+
+div.body {
+    margin: 0 auto;
+    width: 1000px;
+    padding: 25px;
+    padding-top: 0px;
+}
+
+div.content {
+    float: left;
+    width: 675px;
+}
+
+div.sidebar {
+    float: right;
+    width: 275px;
+}
+
+div.sideitem {
+    width: 135px;
+    display: inline-block;
+}
+
+div.sideitem img {
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+    padding-bottom: 5px;
+}
+
+div.featured {
+    width: 335px;
+    display: inline-block;
+}
+
+div.featured h3 {
+    margin-top: 11px;
+}
+
+div.menuitem {
+    width: 222px;
+    text-align: center;
+    display: inline-block;
+}
+
+div.menuitem h1 {
+    margin-bottom: 5px;
+}
+
+div.menuitem pre {
+    font-size: 10px;
+    margin-top: 0px;
+    margin-bottom: 28px;
+}
+
+div.blog-group {
+    display: flex;
+}
+
+div.blog-year h1 {
+    position: relative;
+    top: 50%;
+    line-height: 0px;
+    margin: 0px;
+    padding-right: 8px;
+}
+
+div.blog-brace1 {
+    background-color: #4c4c4c;
+    height: 5px;
+    width: 20px;
+    align-self: center;
+}
+
+div.blog-brace2 {
+    background-color: #4c4c4c;
+    width: 5px;
+}
+
+div.blog-brace3 {
+    background-color: #4c4c4c;
+    height: 5px;
+    width: 20px;
+}
+
+div.blog-brace4 {
+    height: calc(100% - 10px);
+    width: 20px;
+}
+
+div.blog-brace5 {
+    background-color: #4c4c4c;
+    height: 5px;
+    width: 20px;
+}
+
+div.blog-list {
+    width: 100%;
+}
+
+div.blog-list h3 {
+    margin-top: 23px;
+    margin-bottom: 0px;
+}
+
+div.iconparent {
+    clear: both;
+    margin-bottom: 15px;
+}
+
+div.iconimg {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 15px;
+    height: 80px;
+    width: 80px;
+}
+
+div.iconimg img {
+    height: 80px;
+    width: 80px;
+}
+
+div.iconlist {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 3.5px;
+}
+
+div.iconlist p {
+    padding: 3.5px;
+    background-color: #e0e0e0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+div.ewcbt-redgreen {
+    height: 334px;
+    width: 350px;
+    float: left;
+}
+
+div.ewcbt-info {
+    width: 650px;
+    float: right;
+}
+
+div.hours {
+    width: 498px;
+    display: inline-block;
+}
+
+div.hours p {
+    font-size: 28px;
+    padding-left: 85px;
+}
+
+div.hours span {
+    font-size: 14px;
+}
+
+div.text-left-a {
+    width: 445px;
+    float: left;
+}
+
+div.image-right-a {
+    width: 550px;
+    float: right;
+    margin-top: 16px;
+}
+
+div.ext-l-1 {
+    width: 500px;
+    float: left;
+}
+
+div.ext-r-1 {
+    width: 450px;
+    float: right;
+}
+
+div.ext-l-2 {
+    width: 775px;
+    float: left;
+}
+
+div.ext-r-2 {
+    width: 204px;
+    float: right;
+}
+
+div.email-form {
+    height: 627.797px;
+}
+
+pre {
+    overflow-x: auto;
+    background-color: #e0e0e0;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+pre a {
+    font-family: monospace;
+}
+
+pre.scroll {
+    height: 210px;
+    overflow-y: scroll;
+}
+
+pre.scroll-small {
+    height: 110px;
+    overflow-y: scroll;
+}
+
+pre.pre-wrap-text {
+    white-space: pre-wrap;
+}
+
+pre.arial {
+    font-family: arial;
+}
+
+pre.twenty {
+    font-size: 20px;
+}
+
+pre.pre-vanity span {
+    color: red;
+    font-weight: bold;
+}
+
+code {
+    background-color: #e0e0e0;
+    padding: 2px 4px 2px 4px;
+    border-radius: 2px;
+}
+
+table.centertable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.irc tr td {
+    height: 40px;
+    width: 40px;
+    padding: 0px;
+}
+
+p.onionlink a {
+    font-family: monospace;
+    padding: 3.5px;
+    background-color: #e0e0e0;
+    border: 1px solid #000000;
+}
+
+p.tags {
+    margin-top: 7px;
+    margin-bottom: 28px;
+}
+
+p.tags a {
+    text-decoration: none;
+}
+
+p.tags span {
+    padding: 2px 5px 2px 5px;
+    border: 1.5px solid;
+    border-radius: 4px;
+    border-color: black;
+    margin-right: 1px;
+}
+
+footer {
+    clear: both;
+    margin: 0 auto;
+    width: 1000px;
+    text-align: center;
+}
+
+h5.footer-content {
+    margin-top: 8px;
+}
+
+h5.footer-content img {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+}
+
+ul.spaced-list li {
+    margin-bottom: 7px;
+}
+
+span.tag-apache {
+    background-color: #d70017;
+    color: white;
+}
+
+span.tag-apple {
+    background-color: #999999;
+    color: white;
+}
+
+span.tag-chrome {
+    background-color: #eec11b;
+    color: white;
+}
+
+span.tag-guide {
+    background-color: #6b8e23;
+    color: white;
+}
+
+span.tag-ipv6 {
+    background-color: #ff65ed;
+    color: white;
+}
+
+span.tag-irc {
+    background-color: #20b29a;
+    color: white;
+}
+
+span.tag-namecoin {
+    background-color: #6385bb;
+    color: white;
+}
+
+span.tag-meta {
+    background-color: #59a2c7;
+    color: white;
+}
+
+span.tag-pastebin {
+    background-color: #003d64;
+    color: white;
+}
+
+span.tag-rfc {
+    background-color: #ffb100;
+    color: white;
+}
+
+span.tag-security {
+    background-color: #40b800;
+    color: white;
+}
+
+span.tag-tls {
+    background-color: #df9535;
+    color: white;
+}
+
+span.tag-tor {
+    background-color: #8c3399;
+    color: white;
+}
+
+span.tag-ubuntu {
+    background-color: #e95420;
+    color: white;
+}
+
+.centertext {
+    text-align: center;
+}
+
+.clearboth {
+    clear: both;
+}
+
+.redlink a:link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.redlink a:visited {
+    color: #000000;
+    text-decoration: none;
+}
+
+.redlink a:hover {
+    color: #ff0000;
+}
+
+.two-mar-top {
+    margin-top: 2px;
+}
+
+.no-mar-top {
+    margin-top: 0px;
+}
+
+.no-mar-bottom {
+    margin-bottom: 0px;
+}
+
+.two-mar-bottom {
+    margin-bottom: 2px;
+}
+
+.two-mar-left {
+    margin-left: 2px;
+}
+
+.two-no-mar {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+.display-inline {
+    display: inline;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
+
+.display-block {
+    display: block;
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.flex-align-center {
+    align-items: center;
+}
+
+.flex-justify-center {
+    justify-content: center;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.width-450 {
+    width: 450px;
+}
+
+.width-545 {
+    width: 545px;
+}
+
+.padding-right-10 {
+    padding-right: 10px;
+}
+
+.padding-8-rl {
+    padding: 0px 8px 0px 8px;
+}
+
+.intro-mar-top {
+    margin-top: 11px;
+}
+
+.info {
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+
+.currentproject {
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.stats-padding-top {
+    padding-top: 20px;
+}
+
+.ewcbt-mar {
+    margin: 15px;
+}
+
+.ewcbt-shift {
+    position: relative;
+    bottom: 319px;
+    left: 15px;
+}
+
+.gravityradio {
+    display: none;
+}
+
+
+
+.gravityradio:checked + .gravitylabel {
+    background: url(/images/gravity.gif);
+}
+
+.font-twenty-three {
+    font-size: 23px;
+}
+
+.ios6-slider {
+    background-image: url(/blog/ipad-mini-ios6/ios-6.png);
+    position: relative;
+    overflow: hidden;
+    width: 1000px;
+    height: 750px;
+}
+
+.ios9-slider {
+    background-image: url(/blog/ipad-mini-ios6/ios-9.png);
+    position: absolute;
+    resize: horizontal;
+    height: 750px;
+    min-width: 0;
+    max-width: 1000px;
+}
+
+.ios9-slider:before {
+    content: '\2194';
+    background: black;
+    position: absolute;
+    line-height: 750px;
+    top: 0;
+    right: 0;
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 16px;
+    color: white;
+    cursor: ew-resize;
+}
+
+.ios-slider {
+    position: relative;
+    resize: horizontal;
+    width: 505px;
+    height: 15px;
+    top: 50%;
+    left: 0px;
+    transform: scaleY(65);
+    transform-origin: center center;
+    min-width: 14px;
+    max-width: 1000px;
+    opacity: 0;
+}
+
+.subgraphcheck {
+    display: none;
+}
+
+.subgraphlabel {
+    display: inline-block;
+    width: 720px;
+    height: 400px;
+    background: url(/blog/subgraph-os-overview/subgraph-vm-not-flashing.png);
+}
+
+.subgraphcheck:checked + .subgraphlabel {
+    background: url(/blog/subgraph-os-overview/subgraph-vm-flashing.gif);
+}
+
+.subgraph-img-1 {
+    padding-right: 17px;
+}
+
+.subgraph-img-2 {
+    padding-right: 18px;
+}
+
+.left-right-title-margin {
+    margin-bottom: 3.920px;
+}

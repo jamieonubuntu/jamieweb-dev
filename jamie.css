@@ -1,46 +1,45 @@
-.gravitylabel {
-    display: inline-block;
-    margin-top: 29px; /*ADDED*/
-    width: 275px;
-    height: 275px;
-    background: url(/images/identicon.png);
+h1,h2,h3,h4,h5,h6,p,a,li,td,th { /*ADD TH*/
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
-div.sideitems {
-    margin: 18px 0px;
+.radius-8 {
+    border-radius: 8px;
 }
 
-div.sideitem h4 {
-    display: inline-block;
-    margin: 14px 0px;
+.margin-left-auto {
+    margin-left: auto;
 }
 
-div.tops h4 {
-    margin-top: 20px;
-    margin-bottom: 0px;
+table.h1-scope {
+    width: 1000px;
+    border-collapse: collapse;
 }
 
-/*REMOVE*/
-div.sidebar h4.sideitem-mar-bottom {
-    margin-bottom: 19px
+table.h1-scope th,table.h1-scope td {
+    padding: 6px;
+    border: 2px solid;
 }
 
-/*REMOVE*/
-div.sideitem-b {
-    width: 270px;
-    display: inline-block;
+tr.h1-scope-header {
+    font-weight: bold;
+    background-color: lightgreen;
 }
 
+th.h1-scope-type {
+    width: 150px;
+}
 
+th.h1-scope-identifier {
+    width: 600px;
+}
 
+th.h1-scope-max-severity {
+    width: 150px;
+}
 
-
-
-
-
-
-
-
+th.h1-scope-in-scope {
+    width: 100px;
+}
 
 
 
@@ -171,6 +170,15 @@ div.sidebar {
     width: 275px;
 }
 
+div.sidebar h4 {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+div.sideitems {
+    margin: 11px 0px;
+}
+
 div.sideitem {
     width: 135px;
     display: inline-block;
@@ -181,6 +189,22 @@ div.sideitem img {
     height: 36px;
     vertical-align: middle;
     padding-bottom: 5px;
+    margin-right: 1.5px;
+}
+
+div.sideitem img.h1 {
+    width: 19px;
+    height: 36px;
+}
+
+div.sideitem h4 {
+    display: inline-block;
+    margin: 13px 0px;
+}
+
+div.tops h4 {
+    margin-top: 20px;
+    margin-bottom: 0px;
 }
 
 div.featured {
@@ -657,7 +681,14 @@ span.tag-ubuntu {
     display: none;
 }
 
-
+.gravitylabel {
+    display: inline-block;
+    margin-top: 29px;
+    margin-bottom: 5px;
+    width: 275px;
+    height: 275px;
+    background: url(/images/identicon.png);
+}
 
 .gravityradio:checked + .gravitylabel {
     background: url(/images/gravity.gif);

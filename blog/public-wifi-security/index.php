@@ -27,10 +27,10 @@
 &#x2523&#x2501&#x2501 <a href="#what-is-wrong-with-using-a-vpn">What is wrong with just using a VPN?</a>
 &#x2523&#x2501&#x2501 <a href="#raspberry-pi-secure-connection">Using a Raspberry Pi to Connect Securely</a>
 &#x2523&#x2501&#x2501 <a href="#raspberry-pi-setup">Initial Raspberry Pi Setup</a>
-&#x2523&#x2501&#x2501 <a href="#">VNC SSH Tunnel</a>
-&#x2523&#x2501&#x2501 <a href="#">Network Forwarding and Blocking</a>
-&#x2523&#x2501&#x2501 <a href="#">Connecting to the Internet</a>
-&#x2523&#x2501&#x2501 <a href="#">Potential Problems With This Design</a>
+&#x2523&#x2501&#x2501 <a href="#vnc-ssh-tunnel">VNC SSH Tunnel</a>
+&#x2523&#x2501&#x2501 <a href="#firewall-rules">Network Forwarding and Blocking</a>
+&#x2523&#x2501&#x2501 <a href="#connecting-to-the-internet">Connecting to the Internet</a>
+&#x2523&#x2501&#x2501 <a href="#potential-problems">Potential Problems With This Design</a>
 &#x2517&#x2501&#x2501 <a href="#conclusion">Conclusion</a></pre>
     <h2 id="what-is-wrong-with-using-a-vpn">What is wrong with just using a VPN?</h2>
     <p>It is common advice to use a VPN when browsing the internet from a public Wi-Fi hotspot, however this is only effective to a certain extent:</p>
@@ -111,17 +111,84 @@ net.ipv6.conf.eth0.disable_ipv6 = 1</pre>
     <p>Install TightVNC server on your Pi:</p>
     <pre>$ sudo apt-get instal tightvncserver</pre>
     <p>You can then start a VNC desktop bound only to localhost using the following command (adjust screen resolution as required):</p>
-    <pre>$ vncserver :8 -geometry 1920x1080 -localhost</pre>
+    <pre>$ vncserver :3 -geometry 1920x1080 -localhost</pre>
+    <p>The <code>:3</code> refers to the ID of the virtual screen. If you use another number here, you'll have to adjust the port number for connections later on.</p>
     <p>The first time you start a VNC desktop, it will ask you to set a password. This password really does not matter, as it will not be used for authentication in this setup - the SSH tunnel handles this instead.</p>
     <h3>b. Configure the SSH Tunnel</h3>
     <p>On your client device, you can start an SSH tunnel connection to your Pi with the following command:</p>
-    <pre>$ ssh -e none -x -L 5902:127.0.0.1:2908 pi@&lt;your-pi-ip-address&gt;</pre>
+    <pre>$ ssh -e none -x -L 5902:127.0.0.1:2903 pi@&lt;your-pi-ip-address&gt;</pre>
     <p>Syntax explanation:</p>
     <ul class="spaced-list">
         <li><b>-e none</b>: Disable the escape character, which prevents binary data (in this case, VNC) from accidentally closing the connection.</li>
-        <li><b>-x</b>: Disable X11 forwarding - meaning that you can't view graphical applications through the connection. In this case, X11 forward is not required so it is disabled for security.</li>
-        <li><b>-L 5902:127.0.0.1:2803</b>: This creates the tunnel. Connections to 127.0.0.1 (localhost) on port 5902 on the client will be forwarded through the tunnel to 127.0.0.1 port 2803 on the remote host. This means that connecting on your client to <code>vnc://localhost:5902</code> will connect you to the remote desktop running on port 5903. Port 5900+N is the default port for VNC, where N is the display number.</p>
+        <li><b>-x</b>: Disable X11 forwarding - meaning that you can't view graphical applications through the connection. In this case, X11 forwarding is not required so it is disabled for security.</li>
+        <li><b>-L 5902:127.0.0.1:5903</b>: This creates the tunnel. Connections to 127.0.0.1 (localhost) on port 5902 on the client will be forwarded through the tunnel to 127.0.0.1 port 5903 on the remote host. This means that connecting from your client to <code>localhost:5902</code> will connect you to the remote desktop running on port 5903. Port 5900+N is the default port for VNC, where N is the display number. For example, if you want to connect to display 4, then port 5904 is what you should use.</p>
+    </ul>
+    <p>For further details, please see the <a href="https://linux.die.net/man/1/ssh" target="_blank" rel="noopener">SSH manual page</a>.</p>
+    <p>If you are using SSH key authentication, you can manually specify the location of the key using <code>-i</code> for example: <code>ssh -i ~/.ssh/pi</code>
+    <h3>c. Connect to VNC</h3>
+    <p>Now that the SSH tunnel is established, you can connect to the remote VNC desktop through it.</p>
+    <p>Using your favourite VNC-compatible remote desktop client (eg: Remmina), simply connect to <code>localhost:5902</code>. You should be prompted for the VNC password and the remote desktop session will start.</p>
+    <p><i>To clarify, connect from your client device to <code>localhost:5902</code>. The SSH tunnel that is running is listening for connections on this address, and it will forward them through the tunnel to the remote host (the Pi).</i></p>
+    <img class="radius-8" width="700px" src="rpi-images/rpi-remote-desktop-vnc.png">
 
+    <h2 id="firewall-rules">Network Forwarding and Blocking</h2>
+    <p>Next, you must configure your Raspberry Pi to act as a router, and then to block all connections except for those out to your VPN.</p>
+    <h3>a. Enable Native IPv4 Packet Forwarding</h3>
+    <p>Edit the file <code>/etc/sysctl.conf</code> and ensure that the option <code>net.ipv4.ip_forward=1</code> is set. It is probably commented out by default - just remove the hash.</p>
+    <p>This configuration will be applied at the next reboot, although you can also reload the configuration now using <code>sudo sysctl -p /etc/sysctl.conf</code>.</p>
+    <p>If you forget to do this, your forwarded network connection will be extremely slow.</p>
+    <h3>b. Configure Firewall Rules</h3>
+    <p>Create a file named <code>forward.sh</code> (any name is fine), and insert the script shown below. This script will configure your Raspberry Pi to act as a router. All traffic between the Raspberry Pi and your laptop will also be blocked except for connections to itself and your external VPN.</p>
+    <p>In this example, I have used the IPv4 address of this web server (139.162.222.67) as the external VPN address - you must substitute this with the IP of yours. You may also need to use different network interface names (<code>wlan0</code> and <code>eth0</code>). Check your interfaces using <code>ifconfig</code>.</p>
+    <pre>#!/bin/bash
+#Allow NAT
+iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
+
+#Block everything between Wi-Fi and Ethernet
+iptables -I FORWARD -i wlan0 -o eth0 -j DROP
+iptables -I FORWARD -i eth0 -o wlan0 -j DROP
+
+#Allow VPN out
+iptables -I FORWARD -o wlan0 -i eth0 -d 139.162.222.67 -j ACCEPT
+
+#Allow VPN in
+iptables -I FORWARD -i wlan0 -o eth0 -s 139.162.222.67 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+#Allow client to Pi communication for SSH, etc
+iptables -I INPUT -i eth0 -s 192.168.2.2 -d 192.168.2.1 -j ACCEPT
+
+#Create 192.168.2.0/24 subnet
+ifconfig eth0 192.168.2.1 netmask 255.255.255.0
+
+#Delete default route for eth0
+ip route del 0/0 dev eth0</pre>
+    <p>Syntax explanation:</p>
+    <ul class="spaced-list">
+        <li><b>iptables</b>: A tool to modify the Linux kernel firewall.</li>
+        <li><b>-t</b>: The table to modify, for example: <code>-t nat</code>. When no table is specified, the <code>filter</code> table is used, which contains the standard <code>INPUT</code>, <code>OUTPUT</code>, and <code>FORWARD</code> chains.</li>
+        <li><b>-A</b>: Append the rule to the specified chain, for example <code>-A POSTROUTING</code>. The <code>POSTROUTING</code> chain is part of the <code>nat</code> table, and is used to alter NATted packets as they are about to go out (<i>post</i>-routing).</li>
+        <li><b>-I</b>: Insert a rule at the top of the specified chain (meaning it will be applied first), for example <code>-A FORWARD</code>. The <code>FORWARD</code> chain is used to alter packets that are being forwarded, the <code>INPUT</code> chain is used for incoming packets, and the <code>OUTPUT</code> chain is used for outgoing packets.</li>
+        <li><b>-o</b>: Match the name of the outgoing network interface (where the packet is going). <code>wlan0</code> is Wi-Fi, and <code>eth0</code> is ethernet, however you may have different interface names. You can see your interfaces using the <code>ifconfig</code> command.</li>
+        <li><b>-i</b>: Match the name of the incoming network interface (where the packet arrived (where the packet arrived from).</li>
+        <li><b>-s</b>: Match the source address of the packets.</li>
+        <li><b>-d</b>: Match the destination address of the packets.</li>
+        <li><b>-m</b>: Match using an extension module. For example <code>-m state --state RELATED,ESTABLISHED</code>, which will not match unsolicited connections.</li>
+        <li><b>-j</b>: The action to take, for example: <code>ACCEPT</code>, <code>DROP</code>, <code>REJECT</code> and <code>MASQUERADE</code>. Packet masquerading is another term for many-to-one NAT, which is what most IPv4 home/office networks use.</li>
+    </ul>
+    <p>For further details, please see the <a href="https://linux.die.net/man/8/iptables" target="_blank" rel="noopener">iptables manual page</a>.</p>
+    <p>Mark the script as executable:</p>
+    <pre>$ chmod +x forward.sh</pre>
+    <p>...and run the script once to apply it (or you can reboot):</p>
+    <pre>$ sudo ./forward.sh</pre>
+    <h3>c. Configure the Script to Run at Boot</h3>
+    <p>Add this file to root's crontab (task scheduler config):</p>
+    <pre>$ sudo crontab -e</pre>
+    <p>Add the following line, setting the correct path and name for your file:</p>
+    <pre>@reboot sleep 3 && /path/to/forward.sh</pre>
+    <p>This will run the script at boot, ensuring that your rules and configurations are always applied.</p>
+
+    <h2 id="connecting-to-the-internet">Connecting to the Internet</h2>
+    <p>
 </div>
 
 <?php include "footer.php" ?>

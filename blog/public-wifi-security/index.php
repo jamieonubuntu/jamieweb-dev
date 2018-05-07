@@ -84,7 +84,7 @@ findtime = 3600
 maxretry = 3</pre>
     <h3>c. SSH Server Hardening</h3>
     <p>It is recommended to use <a href="https://help.ubuntu.com/community/SSH/OpenSSH/Keys" target="_blank" rel="noopener">SSH key authentication</a>, however if you wish to use password authentication, ensure that the password is strong.</p>
-    <p>Use your favourite text editor (eg: <code>nano</code>) to edit the file <code>/etc/ssh/sshd_config</code>, and ensure that the following values are set:</p>
+    <p>Use your favourite text editor (eg: <code>nano</code>) to edit the file <code>/etc/fail2ban/sshd_config</code>, and ensure that the following values are set:</p>
     <pre>PermitRootLogin no
 X11Forwarding no
 PermitTunnel yes</pre>
@@ -93,6 +93,7 @@ PermitTunnel yes</pre>
     <p>Additionally, you must set access rules in order to ensure that logins are only permitted from certain locations:</p>
     <pre>AllowUsers pi@&lt;your-local-ip-address&gt; pi@192.168.2.2</pre>
     <p>Substitute "&lt;your-local-ip-address&gt;" for the private IP address of your client device. This is the one that you can find from <code>ifconfig</code> (*nix) or <code>ipconfig</code> (Windows) - it most likely begins with "192.168.". Make sure that you use your private IPv4 address, as IPv6 will be disabled in order to help prevent VPN leaks.</p>
+    <p>The 192.168.2.2 address is part of the subnet that will be created later in this guide. If this subnet is in use on your network, you may select another one and adjust your configuration according throughout the rest of the guide.</p>
     <h3>d. Disable IPv6</h3>
     <p>As much as <a href="/blog/ipv6-site-upgrade" target="_blank">I like IPv6</a>, in this particular use case, it provides unecessary complications and security risks. Public Wi-Fi hotspots rarely support IPv6 anyway, so it's not like you're missing out.</p>
     <p>Edit the file <code>/etc/sysctl.conf</code> and set the following values:</p>
@@ -101,6 +102,25 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 net.ipv6.conf.wlan0.disable_ipv6 = 1
 net.ipv6.conf.eth0.disable_ipv6 = 1</pre>
+
+    <h2 id="vnc-ssh-tunnel">VNC SSH Tunnel</h2>
+    <p>For this setup, VNC will be used in order to provide remote desktop functionality. Remote desktop is required so that you can view the captive portal and authenticate in order to access the public Wi-Fi hotspot.</p>
+    <p>While it could be possible to handle the captive portal using a command-line browser such as <code>elinks</code>, many captive portals nowadays are unfortunately very JavaScript heavy and involve filling out forms, which elinks sometimes doesn't handle well.</p>
+    <p>It is not safe to run a VNC server that is exposed to an untrusted network. In order to lock it down, SSH tunneling can be used. This will tunnel the insecure VNC connection through the secure SSH tunnel, meaning that the traffic will be encrypted and integrity checked.</p>
+    <h3>a. Install TightVNC Server</h3>
+    <p>Install TightVNC server on your Pi:</p>
+    <pre>$ sudo apt-get instal tightvncserver</pre>
+    <p>You can then start a VNC desktop bound only to localhost using the following command (adjust screen resolution as required):</p>
+    <pre>$ vncserver :8 -geometry 1920x1080 -localhost</pre>
+    <p>The first time you start a VNC desktop, it will ask you to set a password. This password really does not matter, as it will not be used for authentication in this setup - the SSH tunnel handles this instead.</p>
+    <h3>b. Configure the SSH Tunnel</h3>
+    <p>On your client device, you can start an SSH tunnel connection to your Pi with the following command:</p>
+    <pre>$ ssh -e none -x -L 5902:127.0.0.1:2908 pi@&lt;your-pi-ip-address&gt;</pre>
+    <p>Syntax explanation:</p>
+    <ul class="spaced-list">
+        <li><b>-e none</b>: Disable the escape character, which prevents binary data (in this case, VNC) from accidentally closing the connection.</li>
+        <li><b>-x</b>: Disable X11 forwarding - meaning that you can't view graphical applications through the connection. In this case, X11 forward is not required so it is disabled for security.</li>
+        <li><b>-L 5902:127.0.0.1:2803</b>: This creates the tunnel. Connections to 127.0.0.1 (localhost) on port 5902 on the client will be forwarded through the tunnel to 127.0.0.1 port 2803 on the remote host. This means that connecting on your client to <code>vnc://localhost:5902</code> will connect you to the remote desktop running on port 5903. Port 5900+N is the default port for VNC, where N is the display number.</p>
 
 </div>
 

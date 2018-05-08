@@ -69,7 +69,7 @@
     <p>...followed by rebooting.</p>
     <p>Or use <code>raspi-config</code> to enable it:</p>
     <pre>$ sudo raspi-config</pre>
-    <p>Navigate to <code>Interfacing Options</code> -> <code>SSH</code> and ensure that SSH is enabled:</p>
+    <p>Navigate to <code>Interfacing Options</code> -&gt; <code>SSH</code> and ensure that SSH is enabled:</p>
     <img class="radius-8" width="700px" src="rpi-images/raspi-config-interfaces.png">
     <h3>b. Configure UFW (Uncomplicated Firewall) and Fail2ban</h3>
     <p>Install <code>ufw</code> and <code>fail2ban</code> if they aren't already installed:</p>
@@ -126,11 +126,15 @@ net.ipv6.conf.eth0.disable_ipv6 = 1</pre>
     <p>For further details, please see the <a href="https://linux.die.net/man/1/ssh" target="_blank" rel="noopener">SSH manual page</a>.</p>
     <p>If you are using SSH key authentication, you can manually specify the location of the key using <code>-i</code> for example: <code>ssh -i ~/.ssh/pi</code>
     <h3>c. Connect to VNC</h3>
-    <p>Now that the SSH tunnel is established, you can connect to the remote VNC desktop through it.</p>
+    <p>Now that the SSH tunnel is established, you can connect to the remote VNC desktop through it. You must keep the SSH tunnel open for this to work and also ensure that you previously started the VNC server.</p>
     <p>Using your favourite VNC-compatible remote desktop client (eg: Remmina), simply connect to <code>localhost:5902</code>. You should be prompted for the VNC password and the remote desktop session will start.</p>
     <p><i>To clarify, connect from your client device to <code>localhost:5902</code>. The SSH tunnel that is running is listening for connections on this address, and it will forward them through the tunnel to the remote host (the Pi).</i></p>
     <img class="radius-8" width="700px" src="rpi-images/rpi-remote-desktop-vnc.png">
-
+    <p>In order to terminate the VNC session, simply run <code>vncserver -kill :3</code> from the SSH tunnel connection. You can then close the SSH connection as usual.</p>
+    <h3>d. Chromium Browser Hardening</h3>
+    <p>Chromium will be used to deal with the captive portal on the public hotspot. In order to provide some basic protection, it is recommended to disable JavaScript, cookies, Flash, etc. All of this can be done in <code>Settings</code> -&gt; <code>Advanced</code> -&gt; <code>Content Settings</code>.</p>
+    <p>You can then whitelist these on a per-site basis if required by clicking the left of the Omnibox (URL bar) and setting them to <code>Allow</code>.</p>
+    <p>I also recommend adding a bookmark for a site that does not use TLS. This is because you'll need to visit a HTTP-only website in order to trigger the redirect to the captive portal. <sub><sup><sup>[HTTP]</sup></sup></sub><a href="http://neverssl.com" target="_blank" rel="noopener">neverssl.com</a> is great for this.</p>
     <h2 id="firewall-rules">Network Forwarding and Blocking</h2>
     <p>Next, you must configure your Raspberry Pi to act as a router, and then to block all connections except for those out to your VPN.</p>
     <h3>a. Enable Native IPv4 Packet Forwarding</h3>
@@ -188,7 +192,39 @@ ip route del 0/0 dev eth0</pre>
     <p>This will run the script at boot, ensuring that your rules and configurations are always applied.</p>
 
     <h2 id="connecting-to-the-internet">Connecting to the Internet</h2>
-    <p>
+    <p>In order to actually connect to the internet using this setup, you must go through a short process. This is what you'll have to do once you're in your hotel room and you want to access the internet:</p>
+    <h3>a. Secure VPN Client Configuration</h3>
+    <p>Before you start, there are a couple of configurations you can make to your VPN client in order to harden it. These are possible in most VPN client software, such as network-manager-openvpn or Tunnelblick:</p>
+    <ul>
+        <li>Ensure that all traffic is set to go through your VPN - for example by configuring the OpenVPN <code>redirect-gateway</code> option.</li>
+        <li>Ensure that DNS is going through the VPN, and check for DNS leaks.</li>
+    <h3>b. Hardware Connections</h3>
+    <p>Connect your laptop to your Raspberry Pi using an ethernet cable and power on both devices.</p>
+    <h3>c. Manually Connect to Your Raspberry Pi Router</h3>
+    <p>Since no DHCP server is set up on the Pi, you'll have to connect manually.</p>
+    <p>This process varies depending on which operating system you are using, however on all common operating systems is it pretty easy to manually set your IP address, subnet mask, gateway, etc.</p>
+    <p>You should use the following values:</p>
+    <pre>IP Address:  192.168.2.2
+Subnet Mask: 255.255.255.0
+Router:      192.168.2.1</pre>
+    <p>You should not set a DNS server - your VPN client will handle this. Setting a DNS server entry just poses unecessary risk should your locked-down connection somehow fail.</p>
+    <p>It is probably best to add a new network connection for this, rather than editing any existing ones.</p>
+    <h3>d. Establish the SSH Tunnel</h3>
+    <p>Once you are connected, you should be able to establish an SSH tunnel with your Pi. Remember that now you're using the ethernet interface, you will connect with the Pi's IP address on that interface:</p>
+    <pre>$ ssh -e none -x -L 5902:127.0.0.1:2903 pi@192.168.2.1</pre>
+    <p>If everything has worked, you will login to SSH successfully.</p>
+    <p>If this is your first time connecting to the Pi whilst it is connected via ethernet to your laptop, you should edit the <code>/etc/ssh/sshd_config</code> file and remove the <code>AllowUsers</code> entry for your previous network private IP address. You should never need to connect to your Pi that way again. Ensure that the value reads: <code>AllowUsers pi@192.168.2.2</code>.</p>
+    <h3>e. Connect to VNC</h3>
+    <p>Start the VNC desktop by running the following on your Pi:</p>
+    <pre>$ vncserver :3 -geometry 1920x1080 -localhost</pre>
+    <p>Then, using a VNC client on your laptop, connect to <code>localhost:5902</code>. The VNC desktop should appear. This time, the session will be much more responsive and have lower latency as you have a direct connection through the ethernet cable, rather than through your home/office network/router.</p>
+    <h3>f. Connect to the Public Wi-Fi Hotspot and Deal With the Captive Portal</h3>
+    <p>Using the remote desktop session, you can connect to the public Wi-Fi hotspot.</p>
+    <p>Open Chromium, and navigate to a website that does not use TLS, such as <sub><sup><sup>[HTTP]</sup></sup></sub><a href="http://neverssl.com" target="_blank" rel="noopener">neverssl.com</a>. The captive portal should then be shown. Ensure that you are on the legitimate captive portal (this can be hard to determine, but check the URL for known Wi-Fi services such as The Cloud or Virgin Wi-Fi - this is a prime opportunity for phishing attacks so be careful).</p>
+    <p>Enable JavaScript and cookies if required, and authenticate with the captive portal. Once done, you should now have a working (but insecure) internet connection on your Raspberry Pi.</p>
+    <h3>g. Connect to Your External VPN From Your Laptop</h3>
+    <p>Connect to your external VPN using whichever VPN client you desire. For example network-manager-openvpn for Linux systems using GNOME, Tunnelblick for Mac, etc.</p>
+    <p>You should now have a working internet connection through your VPN on your secure laptop.</p>
 </div>
 
 <?php include "footer.php" ?>

@@ -20,7 +20,7 @@
 <div class="body">
     <h1>Launching a Public HackerOne Security Vulnerability Disclosure Program</h1>
     <hr>
-    <p><b>Wednesday 2nd May 2018</b></p>
+    <p><b>Friday 11th May 2018</b></p>
     <p>Last month, I launched a public HackerOne security vulnerability disclosure program for my website. I've been working on this for a while, and I'm now very happy to have launched the program publicly!</p>
     <p><b>Skip to Section:</b></p>
     <pre><b>Launching a Public HackerOne Security Vulnerability Disclosure Program</b>
@@ -182,7 +182,7 @@ ErrorDocument 500 /500.php</pre>
         <li><p><b>Firstly, the </b><code>Location</code><b> directive only performs URL-matching:</b> This means that simply accessing a URL outside of the specified value means that the directive will not be applied. Even though the location value in my configuration is set to "/", you can still achieve this by using URL-encoded characters, such as <code>%2f</code>, which is a forward slash.</p>
     <p>For example: <code>GET /..%2f</code> is equivalent to <code>GET /../</code>, or "GET the directory above". This may look like a directory traversal vulnerability, but in this case it's not - the web server will not serve content outside of the directory that it is supposed to. What's actually happening is the URL no longer falls under the scope of the <code>&lt;Location /&gt;</code> directive, so the request is never denied and the 403 Forbidden error page is never displayed. Instead, it simply returns with a 404 Not Found error.</p>
     <p>Perhaps the most ideal solution to this would be to switch to using the <code>Directory</code> directive instead, as this matches based on file-system directories rather than URLs. These cannot be easily controlled by user input like URLs can. However, I am unable to use these with my current configuration. This is because where the main <code>Directory</code> directives are initially defined in my global Apache configuration, I have set the directive <code>AllowOverride None</code> in order to prevent further changes to the directory configuration in other configuration files or in .htaccess files. I do not want to relax the override configuration at all as this puts me at risk of .htaccess exploits.</p>
-    <p>For example, if my GitHub account were to be compromised and I unfortunately issued a <code>git pull</code> from the web server without properly checking the changes and commit signing, it would be possible for malicious .htaccess files to be added to my website without the attacker ever accessing the server. Then, the attacker would have full control over the Apache configuration.</p>
+    <p>For example, if my GitHub account were to be compromised and I unfortunately issued a <code>git pull</code> from the web server without properly checking the changes and commit signing, it would be possible for malicious .htaccess files to be added to my website without the attacker ever accessing the server. Then, the attacker would have full control over the Apache configuration. One possible mitigation for this would be to set the <code>AccessFileName</code> directive to something arbitrary, kind of like a password, however this is simply security through obscurity rather than a robust solution, so it should not be relied on.</p>
     <p>It would be possible to define the <code>Directory</code> directive on a per-virtual host basis in order to have fine-grain control over the override configuration, however this is a suboptimal configuration since the security of it relies on a request actually hitting a virtual host. While this should always happen on a well-configured server, there is a potential for accidental misconfigurations to have a large impact.</p></li>
     <li><p><b>Secondly, the globally defined ErrorDocuments are not actually accessible:</b> This is because they are located in the "/" web server directory, which is restricted by the <code>Deny from all</code>, and also because they could not be located relative to the <code>/../</code> directory.</p></li></ul>
     <p>The solution that I decided on was to continue using the <code>Location</code> directive, but to specify ErrorDocuments specifically for the catch-all virtual hosts:</p>
@@ -192,7 +192,7 @@ ErrorDocument 403 "403 Forbidden"
 ErrorDocument 404 "404 Not Found"
 ErrorDocument 500 "500 Internal Server Error"</pre>
     <p>Since these are defined directly within the virtual host configuration, there will be no access issues or edge-cases where they cannot be served.
-    <p>The impact of 404 page content injection is that an attacker could potentially use this in order to construct a phishing 'page' that would be served by my web server. Designing a phishing page like this would be quite difficult, since it would only be possible to use one continuous line of plain text. However, with some careful text padding and perhaps ASCII art, it could be possible to create a somewhat usable phishing page. I plan to investigate this further and see what the limits of this vulnerability are.</p>
+    <p>The impact of 404 page content injection is that an attacker could potentially use this in order to construct a phishing 'page' that would be served by my web server. Designing a phishing page like this would be quite difficult, since it would only be possible to use one continuous line of plain text. However, with some careful text padding, line breaks and perhaps ASCII art, it could be possible to create a somewhat usable phishing page. I plan to investigate this further and see what the limits of this vulnerability are.</p>
     <p>One important thing to note here is that the majority of websites on the internet are 'vulnerable' to this. This is the default configuration for the Apache web server, and unfortunately a large proportion of websites running on Apache are using the default configuration.</p>
     <p>Thanks again to <a href="https://hackerone.com/abdelkader" target="_blank" rel="noopener">abdelkader</a> for reporting this vulnerability - it was a particularly interesting one!</p>
 
@@ -209,7 +209,7 @@ Signature: https://www.jamieweb.net/.well-known/security.txt.sig
 # This file is available identically at these locations:
 # https://www.jamieweb.net/.well-known/security.txt
 # https://www.jamieweb.net/security.txt</pre>
-    <p>I would like to send a big thanks to <a href="https://www.hackerone.com/" target="_blank" rel="noopener">HackerOne</a> for providing this service and helping me out during the process!</p>
+    <p>Finally, I would like to send a big thanks to Shay, Chris and George at HackerOne as well as the whole organisation for their amazing support throughout this process!</p>
 </div>
 
 <?php include "footer.php" ?>

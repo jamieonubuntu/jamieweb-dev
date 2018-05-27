@@ -22,6 +22,7 @@
         <h1>Jamie Scaife - United Kingdom</h1>
         <hr>
 
+        <h1 class="no-mar-bottom">About</h1>
         <h3 class="no-mar-bottom intro-mar-top">No Ads, No Tracking, No JavaScript</h3>
         <p class="two-mar-top">This website does not have any adverts, tracking or other internet annoyances.<br/>It's also 100% JavaScript free.</p>
         <h3 class="no-mar-bottom">Tor Hidden Services</h3>
@@ -61,72 +62,8 @@
             </a>
         </div>
         <hr>
-        <div class="display-flex">
-            <div class="menuitem">
-                <a href="/blog/">
-                    <h1>Blog</h1>
-                    <pre>BBBBBBBBBBBBBBBBB   
-B::::::::::::::::B  
-B::::::BBBBBB:::::B 
-BB:::::B     B:::::B
-  B::::B     B:::::B
-  B::::B     B:::::B
-  B::::BBBBBB:::::B 
-  B:::::::::::::BB  
-  B::::BBBBBB:::::B 
-  B::::B     B:::::B
-  B::::B     B:::::B
-  B::::B     B:::::B
-BB:::::BBBBBB::::::B
-B:::::::::::::::::B 
-B::::::::::::::::B  
-BBBBBBBBBBBBBBBBB   </pre>
-                </a>
-            </div>
-
-            <div class="menuitem flex-grow-1 padding-8-rl">
-                <a href="/projects/">
-                    <h1>Projects</h1>
-                    <pre>PPPPPPPPPPPPPPPPP   
-P::::::::::::::::P  
-P::::::PPPPPP:::::P 
-PP:::::P     P:::::P
-  P::::P     P:::::P
-  P::::P     P:::::P
-  P::::PPPPPP:::::P 
-  P:::::::::::::PP  
-  P::::PPPPPPPPP    
-  P::::P            
-  P::::P            
-  P::::P            
-PP::::::PP          
-P::::::::P          
-P::::::::P          
-PPPPPPPPPP          </pre>
-                </a>
-            </div>
-
-            <div class="menuitem">
-                <a href="/other/">
-                    <h1>Other</h1>
-                    <pre>     OOOOOOOOO     
-   OO:::::::::OO   
- OO:::::::::::::OO 
-O:::::::OOO:::::::O
-O::::::O   O::::::O
-O:::::O     O:::::O
-O:::::O     O:::::O
-O:::::O     O:::::O
-O:::::O     O:::::O
-O:::::O     O:::::O
-O:::::O     O:::::O
-O::::::O   O::::::O
-O:::::::OOO:::::::O
- OO:::::::::::::OO 
-   OO:::::::::OO   
-     OOOOOOOOO     </pre>
-                </a>
-            </div>
+        <div class="recents">
+<?php bloglist("home"); ?>
         </div>
     </div>
 
@@ -138,24 +75,24 @@ O:::::::OOO:::::::O
         <hr>
         <div class="centertext sideitems">
             <div class="sideitem">
-                <a href="https://github.com/JamieOnUbuntu" target="_blank" rel="noopener"><img src="/images/fontawesome/github.svg"></a>
-                <h4><a href="https://github.com/JamieOnUbuntu" target="_blank" rel="noopener">GitHub</a></h4>
+                <a href="https://github.com/jamieweb" target="_blank" rel="noopener"><img src="/images/fontawesome/github.svg"></a>
+                <h4><a href="https://github.com/jamieweb" target="_blank" rel="noopener">GitHub</a></h4>
             </div>
             <div class="sideitem">
-                <a href="https://twitter.com/JamieOnUbuntu" target="_blank" rel="noopener"><img src="/images/fontawesome/tw.svg"></a>
-                <h4><a href="https://twitter.com/JamieOnUbuntu" target="_blank" rel="noopener">Twitter</a></h4>
+                <a href="https://twitter.com/jamieweb" target="_blank" rel="noopener"><img src="/images/fontawesome/tw.svg"></a>
+                <h4><a href="https://twitter.com/jamieweb" target="_blank" rel="noopener">Twitter</a></h4>
             </div>
             <div class="sideitem">
                 <a href="https://www.youtube.com/jamie90437x" target="_blank" rel="noopener"><img src="/images/fontawesome/yt.svg"></a>
                 <h4><a href="https://www.youtube.com/jamie90437x" target="_blank" rel="noopener">YouTube</a></h4>
             </div>
             <div class="sideitem">
-                <a href="https://keybase.io/JamieOnUbuntu" target="_blank" rel="noopener"><img src="/images/fontawesome/id-card.svg"></a>
-                <h4><a href="https://keybase.io/JamieOnUbuntu" target="_blank" rel="noopener">Keybase</a></h4>
+                <a href="https://keybase.io/jamieweb" target="_blank" rel="noopener"><img src="/images/fontawesome/id-card.svg"></a>
+                <h4><a href="https://keybase.io/jamieweb" target="_blank" rel="noopener">Keybase</a></h4>
             </div>
             <div class="sideitem">
-                <a href="/jamie-scaife.asc" target="_blank"><img src="/images/fontawesome/key.svg"></a>
-                <h4><a href="/jamie-scaife.asc" target="_blank">PGP</a></h4>
+                <a href="https://hackerone.com/jamieweb" target="_blank" rel="noopener"><img class="h1" src="/images/hackerone.png"></a>
+                <h4><a href="https://hackerone.com/jamieweb" target="_blank" rel="noopener">HackerOne</a></h4>
             </div>
             <div class="sideitem">
                 <a href="/rss.xml" target="_blank"><img src="/images/fontawesome/rss.svg"></a>
@@ -163,7 +100,7 @@ O:::::::OOO:::::::O
             </div>
         </div>
         <hr>
-        <h2 class="centertext">Top Posts</h2>
+        <h2 class="centertext">Recent Posts</h2>
         <div class="redlink tops">
 <?php bloglist("recents"); ?>
         </div>

@@ -9,8 +9,30 @@
         }
         echo "                    </h4>\n";
     }
+    elseif($location === "home") {
+        $homeCount = 0;
+        foreach($bloglist->blog as $year) {
+            foreach($year as $post) {
+                $homeCount++;
+                echo "        <div class=\"recent-post clearboth\"><div class=\"recents-info\">
+            <h2 class=\"no-mar-bottom\"><a href=\"/blog/" . $post->uri . "/\">" . $post->title . "</a></h2>                
+            <p class=\"two-mar-top recents-description\">" . $post->shortdesc . "</p>";
+                bloglist("tags", null, $post);
+                echo "        </div>
+        <div class=\"recents-date\">
+            <div class=\"recents-date-content\">
+                <p>date here</p>
+                <p>date herere</p>
+            </div>
+        </div></div>\n";
+                if($homeCount >= 2) {
+                    break 2;
+                }
+            }
+        }
+    }
     elseif($location === "tags") {
-        echo "            <p class=\"tags\">\n";
+        echo "\n            <p class=\"tags\">\n";
         foreach(explode(",", $post->tags) as $tag) {
             echo "                <b><a href=\"/blog/category/" . str_replace(' ', '-', strtolower($tag)) . "/\"><span class=\"tag-" . str_replace(' ', '-', strtolower($tag)) . "\">" . $tag . "</span></a></b>\n";
         }
@@ -68,7 +90,7 @@
     <meta name=\"keywords\" content=\"Jamie, Scaife, jamie scaife, jamiescaife, jamieonubuntu, jamie90437, jamie90437x, jamieweb, jamieweb.net\">
     <meta name=\"author\" content=\"Jamie Scaife\">
     <link href=\"/jamie.css\" rel=\"stylesheet\">
-    <link href=\"https://www.jamieweb.net/blog/category/" . strtolower($category) . "/\" rel=\"canonical\">
+    <link href=\"https://www.jamieweb.net/blog/category/" . str_replace(' ', '-', strtolower($category)) . "/\" rel=\"canonical\">
 </head>
 
 <body>\n\n";

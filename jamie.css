@@ -1,45 +1,37 @@
-h1,h2,h3,h4,h5,h6,p,a,li,td,th { /*ADD TH*/
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+div.recent-post {
+    display: flex;
 }
 
-.radius-8 {
-    border-radius: 8px;
+div.recents-info {
+    flex-grow: 1;
+    float: left;
 }
 
-.margin-left-auto {
-    margin-left: auto;
+div.recents-date {
+    flex: 0 0 160px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    background-color: #ffffbb;
 }
 
-table.h1-scope {
-    width: 1000px;
-    border-collapse: collapse;
+div.recents-date-content {
+    width: 160px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff00b;
 }
 
-table.h1-scope th,table.h1-scope td {
-    padding: 6px;
-    border: 2px solid;
+p.recents-description {
+    margin-bottom: 11px;
 }
 
-tr.h1-scope-header {
-    font-weight: bold;
-    background-color: lightgreen;
-}
 
-th.h1-scope-type {
-    width: 150px;
-}
 
-th.h1-scope-identifier {
-    width: 600px;
-}
-
-th.h1-scope-max-severity {
-    width: 150px;
-}
-
-th.h1-scope-in-scope {
-    width: 100px;
-}
 
 
 
@@ -71,7 +63,7 @@ body {
     margin: 0px;
 }
 
-h1,h2,h3,h4,h5,h6,p,a,li,td {
+h1,h2,h3,h4,h5,h6,p,a,li,td,th {
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
@@ -278,7 +270,7 @@ div.blog-list {
 }
 
 div.blog-list h3 {
-    margin-top: 23px;
+    margin-top: 19.5px;
     margin-bottom: 0px;
 }
 
@@ -467,6 +459,12 @@ h5.footer-content img {
     vertical-align: middle;
     width: 25px;
     height: 25px;
+    margin: 0px 3px;
+}
+
+h5.footer-content img.h1 {
+    width: 13px;
+    margin: 0px 6px;
 }
 
 ul.spaced-list li {
@@ -480,6 +478,11 @@ span.tag-apache {
 
 span.tag-apple {
     background-color: #999999;
+    color: white;
+}
+
+span.tag-bug-bounty {
+    background-color: #db0f6f;
     color: white;
 }
 
@@ -543,6 +546,37 @@ span.tag-ubuntu {
     color: white;
 }
 
+table.h1-scope {
+    width: 1000px;
+    border-collapse: collapse;
+}
+
+table.h1-scope th,table.h1-scope td {
+    padding: 6px;
+    border: 2px solid;
+}
+
+tr.h1-scope-header {
+    font-weight: bold;
+    background-color: lightgreen;
+}
+
+th.h1-scope-type {
+    width: 150px;
+}
+
+th.h1-scope-identifier {
+    width: 600px;
+}
+
+th.h1-scope-max-severity {
+    width: 150px;
+}
+
+th.h1-scope-in-scope {
+    width: 100px;
+}
+
 .centertext {
     text-align: center;
 }
@@ -585,9 +619,21 @@ span.tag-ubuntu {
     margin-left: 2px;
 }
 
+.margin-left-auto {
+    margin-left: auto;
+}
+
 .two-no-mar {
     margin-top: 2px;
     margin-bottom: 0px;
+}
+
+.radius-8 {
+    border-radius: 8px;
+}
+
+.indent {
+    padding-left: 40px;
 }
 
 .display-inline {
@@ -687,11 +733,11 @@ span.tag-ubuntu {
     margin-bottom: 5px;
     width: 275px;
     height: 275px;
-    background: url(/images/identicon.png);
+    background: url(/images/jamieweb.png);
 }
 
 .gravityradio:checked + .gravitylabel {
-    background: url(/images/gravity.gif);
+    background: url(/images/jamieweb-gravity.gif);
 }
 
 .font-twenty-three {

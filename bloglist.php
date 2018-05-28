@@ -15,17 +15,22 @@
             foreach($year as $post) {
                 $homeCount++;
                 echo "        <div class=\"recent-post clearboth\"><div class=\"recents-info\">
-            <h2 class=\"no-mar-bottom\"><a href=\"/blog/" . $post->uri . "/\">" . $post->title . "</a></h2>                
-            <p class=\"two-mar-top recents-description\">" . $post->shortdesc . "</p>";
+            <a href=\"/blog/" . $post->uri . "/\"><h2 class=\"no-mar-bottom\">" . $post->title . "</h2>                
+            <p class=\"two-mar-top recents-description\">" . $post->shortdesc . "</p></a>";
                 bloglist("tags", null, $post);
                 echo "        </div>
         <div class=\"recents-date\">
-            <div class=\"recents-date-content\">
-                <p>date here</p>
-                <p>date herere</p>
+            <div class=\"recents-date-content\">\n";
+                $dateInfo = explode(" ", $post->date);
+                echo "                <h2 class=\"no-mar-top no-mar-bottom date-home centertext\">" . $dateInfo[1] . " " . $dateInfo[2] . "</h2>
+                <h3 class=\"no-mar-top no-mar-bottom date-flip\">";
+                foreach(str_split($dateInfo[3]) as $yearChar) {
+                    echo "<span>" . $yearChar . "</span>";
+                }
+                echo "</h3>
             </div>
         </div></div>\n";
-                if($homeCount >= 2) {
+                if($homeCount >= 4) {
                     break 2;
                 }
             }

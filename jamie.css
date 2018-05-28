@@ -1,3 +1,21 @@
+h2.date-home {
+    line-height: 23px;
+}
+
+h3.date-flip {
+    margin-top: 9px;
+    line-height: 29px;
+}
+
+h3.date-flip span {
+    color: white;
+    background-color: black;
+    padding: 0px 4px;
+    margin: 0px 2px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+}
+
 div.recent-post {
     display: flex;
 }
@@ -14,7 +32,6 @@ div.recents-date {
     justify-content: center;
     align-items: center;
     margin-left: 15px;
-    background-color: #ffffbb;
 }
 
 div.recents-date-content {
@@ -23,7 +40,7 @@ div.recents-date-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff00b;
+    flex-direction: column;
 }
 
 p.recents-description {

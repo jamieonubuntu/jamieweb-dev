@@ -62,9 +62,7 @@
             </a>
         </div>
         <hr>
-        <div class="recents">
-<?php bloglist("home"); ?>
-        </div>
+        <h1>Recent Posts</h1><?php bloglist("home"); ?>
     </div>
 
     <div class="sidebar">

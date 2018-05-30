@@ -14,22 +14,16 @@
         foreach($bloglist->blog as $year) {
             foreach($year as $post) {
                 $homeCount++;
-                echo "        <div class=\"recent-post clearboth\"><div class=\"recents-info\">
-            <a href=\"/blog/" . $post->uri . "/\"><h2 class=\"no-mar-bottom\">" . $post->title . "</h2>                
-            <p class=\"two-mar-top recents-description\">" . $post->shortdesc . "</p></a>";
+                echo "        <div class=\"recent-post clearboth\">
+            <h2 class=\"no-mar-bottom\"><a href=\"/blog/" . $post->uri . "/\">" . $post->title . "</a></h2>
+            <p class=\"two-mar-top recents-date\">" . $post->date . "</p>";
+                
+                echo "            <p class=\"snippet\">" . $post->snippet . "</p>
+            <div class=\"recents-tags\">";
                 bloglist("tags", null, $post);
-                echo "        </div>
-        <div class=\"recents-date\">
-            <div class=\"recents-date-content\">\n";
-                $dateInfo = explode(" ", $post->date);
-                echo "                <h2 class=\"no-mar-top no-mar-bottom date-home centertext\">" . $dateInfo[1] . " " . $dateInfo[2] . "</h2>
-                <h3 class=\"no-mar-top no-mar-bottom date-flip\">";
-                foreach(str_split($dateInfo[3]) as $yearChar) {
-                    echo "<span>" . $yearChar . "</span>";
-                }
-                echo "</h3>
+                echo "            <hr><p class=\"tags\"><b><span class=\"tag-apache\">Continue reading...</span></b></p>
             </div>
-        </div></div>\n";
+        </div>";
                 if($homeCount >= 4) {
                     break 2;
                 }

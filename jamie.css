@@ -1,50 +1,13 @@
-h2.date-home {
-    line-height: 23px;
-}
-
-h3.date-flip {
-    margin-top: 9px;
-    line-height: 29px;
-}
-
-h3.date-flip span {
-    color: white;
-    background-color: black;
-    padding: 0px 4px;
-    margin: 0px 2px;
-    border: 1px solid #999999;
-    border-radius: 5px;
-}
-
-div.recent-post {
-    display: flex;
-}
-
-div.recents-info {
-    flex-grow: 1;
-    float: left;
-}
-
-div.recents-date {
-    flex: 0 0 160px;
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15px;
-}
-
-div.recents-date-content {
-    width: 160px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-p.recents-description {
+p.recents-date {
     margin-bottom: 11px;
+}
+
+div.recent-posts h2,p.recents-date,div.recents-tags {
+    text-align: center;
+}
+
+div.recents-tags p {
+    display: inline-block;
 }
 
 

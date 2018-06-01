@@ -102,7 +102,26 @@
         <hr>
         <h2 class="centertext">Recent Posts</h2>
         <div class="redlink tops">
-<?php bloglist("recents"); ?>
+            <a href="/blog/launching-a-public-hackerone-program/">
+                <h4 class="no-mar-bottom">Launching a Public HackerOne Security Vulnerability Disclosure Program</h4>
+                <h5 class="two-no-mar">A write-up of launching my HackerOne program.</h5>
+                <h5 class="two-mar-top">Friday 11th May 2018</h5>
+            </a>
+            <a href="/blog/secure-public-wifi-access/">
+                <h4 class="no-mar-bottom">Using a Public Wi-Fi Hotspot Securely</h4>
+                <h5 class="two-no-mar">Connecting to hotel Wi-Fi through a Raspberry Pi and VPN.</h5>
+                <h5 class="two-mar-top">Tuesday 8th May 2018</h5>
+            </a>
+            <a href="/blog/letsencrypt-scts-in-certificates/">
+                <h4 class="no-mar-bottom">Let's Encrypt SCTs in Certificates</h4>
+                <h5 class="two-no-mar">LE certificates now have embedded SCTs by default.</h5>
+                <h5 class="two-mar-top">Wednesday 4th April 2018</h5>
+            </a>
+            <a href="/blog/disabling-tls1.0-tls1.1/">
+                <h4 class="no-mar-bottom">Disabling TLS 1.0 and TLS 1.1</h4>
+                <h5 class="two-no-mar">Assessing browser compatibility and disabling older TLS protocol versions.</h5>
+                <h5 class="two-mar-top">Tuesday 13th March 2018</h5>
+            </a>
         </div>
     </div>
 </div>

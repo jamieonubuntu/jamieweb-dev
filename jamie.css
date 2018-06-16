@@ -1,3 +1,89 @@
+.slider {
+    position: relative;
+    resize: horizontal;
+    height: 15px;
+    top: 50%;
+    left: 0px;
+    transform: scaleY(65);
+    transform-origin: center center;
+    min-width: 14px;
+    opacity: 0;
+}
+
+.slider-1000 {
+    width: 505px;
+    max-width: 1000px;
+}
+
+.slider-left {
+    position: absolute;
+    resize: horizontal;
+    min-width: 0;
+}
+
+.slider-1000-left {
+    max-width: 1000px;
+}
+
+.slider-right {
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-1000-right {
+    width: 1000px;
+}
+
+.slider-left:before {
+    content: '\2194';
+    background: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 16px;
+    color: white;
+    cursor: ew-resize;
+}
+
+.slider-ios6 {
+    background-image: url(/blog/ipad-mini-ios6/ios-6.png);
+    height: 750px;
+}
+
+.slider-ios9 {
+    background-image: url(/blog/ipad-mini-ios6/ios-9.png);
+    height: 750px;
+}
+
+.slider-ios9:before {
+    line-height: 750px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 p.recents-date {
     margin-bottom: 11px;
 }
@@ -9,13 +95,6 @@ div.recent-posts h2,div.recent-posts p.tags,p.recents-date {
 div.recents-tags p {
     display: inline-block;
 }
-
-
-
-
-
-
-
 
 @font-face {
     font-family: "Open Sans";
@@ -724,50 +803,7 @@ th.h1-scope-in-scope {
     font-size: 23px;
 }
 
-.ios6-slider {
-    background-image: url(/blog/ipad-mini-ios6/ios-6.png);
-    position: relative;
-    overflow: hidden;
-    width: 1000px;
-    height: 750px;
-}
 
-.ios9-slider {
-    background-image: url(/blog/ipad-mini-ios6/ios-9.png);
-    position: absolute;
-    resize: horizontal;
-    height: 750px;
-    min-width: 0;
-    max-width: 1000px;
-}
-
-.ios9-slider:before {
-    content: '\2194';
-    background: black;
-    position: absolute;
-    line-height: 750px;
-    top: 0;
-    right: 0;
-    padding-right: 2px;
-    padding-left: 2px;
-    font-size: 16px;
-    color: white;
-    cursor: ew-resize;
-}
-
-.ios-slider {
-    position: relative;
-    resize: horizontal;
-    width: 505px;
-    height: 15px;
-    top: 50%;
-    left: 0px;
-    transform: scaleY(65);
-    transform-origin: center center;
-    min-width: 14px;
-    max-width: 1000px;
-    opacity: 0;
-}
 
 .subgraphcheck {
     display: none;

@@ -15,6 +15,11 @@
     max-width: 1000px;
 }
 
+.slider-750 {
+    width: 378px;
+    max-width: 750px;
+}
+
 .slider-left {
     position: absolute;
     resize: horizontal;
@@ -25,6 +30,10 @@
     max-width: 1000px;
 }
 
+.slider-750-left {
+    max-width: 750px;
+}
+
 .slider-right {
     position: relative;
     overflow: hidden;
@@ -32,6 +41,10 @@
 
 .slider-1000-right {
     width: 1000px;
+}
+
+.slider-750-right {
+    width: 750px;
 }
 
 .slider-left:before {
@@ -61,7 +74,40 @@
     line-height: 750px;
 }
 
+.slider-gh {
+    background-image: url(/home/s/Profile/NavSite/Development/home2/jamieweb-master/blog/dual-hosting-git-repositories-on-github-and-gitlab/jamieweb-github.png);
+    height: 422px;
+    background-size: cover;
+}
 
+.slider-gh:before {
+    line-height: 422px;
+}
+
+.slider-gl {
+    background-image: url(/home/s/Profile/NavSite/Development/home2/jamieweb-master/blog/dual-hosting-git-repositories-on-github-and-gitlab/jamieweb-gitlab.png);
+    height: 422px;
+    background-size: cover;
+    margin: auto;
+}
+
+
+
+
+table.gl-fp {
+    width: 1000px;
+    border-collapse: collapse;
+}
+
+table.gl-fp th,table.gl-fp td {
+    padding: 6px;
+    border: 2px solid;
+}
+
+tr.gl-fp-header {
+    font-weight: bold;
+    background-color: lightgreen;
+}
 
 
 

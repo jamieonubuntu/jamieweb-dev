@@ -1,125 +1,115 @@
-.slider {
-    position: relative;
-    resize: horizontal;
-    height: 15px;
-    top: 50%;
-    left: 0px;
-    transform: scaleY(65);
-    transform-origin: center center;
-    min-width: 14px;
-    opacity: 0;
-}
-
-.slider-1000 {
-    width: 505px;
-    max-width: 1000px;
-}
-
-.slider-750 {
-    width: 378px;
-    max-width: 750px;
-}
-
-.slider-left {
-    position: absolute;
-    resize: horizontal;
-    min-width: 0;
-}
-
-.slider-1000-left {
-    max-width: 1000px;
-}
-
-.slider-750-left {
-    max-width: 750px;
-}
-
-.slider-right {
-    position: relative;
-    overflow: hidden;
-}
-
-.slider-1000-right {
-    width: 1000px;
-}
-
-.slider-750-right {
-    width: 750px;
-}
-
-.slider-left:before {
-    content: '\2194';
-    background: black;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding-right: 2px;
-    padding-left: 2px;
-    font-size: 16px;
+footer {
+    clear: both;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #4d4d4d;
     color: white;
-    cursor: ew-resize;
 }
 
-.slider-ios6 {
-    background-image: url(/blog/ipad-mini-ios6/ios-6.png);
-    height: 750px;
+@media (max-width: 1049px) {
+    div.footer {
+        width: 100%;
+    }
 }
 
-.slider-ios9 {
-    background-image: url(/blog/ipad-mini-ios6/ios-9.png);
-    height: 750px;
+@media (min-width: 1050px) {
+    div.footer {
+        width: 1000px;
+    }
 }
 
-.slider-ios9:before {
-    line-height: 750px;
+div.footer {
+    display: flex;
+    margin: 0 auto;
 }
 
-.slider-gh {
-    background-image: url(/home/s/Profile/NavSite/Development/home2/jamieweb-master/blog/dual-hosting-git-repositories-on-github-and-gitlab/jamieweb-github.png);
-    height: 422px;
-    background-size: cover;
+div.footer-column {
+    width: 300px;
 }
 
-.slider-gh:before {
-    line-height: 422px;
+div.footer-column a {
+    color: white;
+    text-decoration: none;
+    margin: 0px 10px 10px 0px;
+    display: inline-block;
+    width: calc(50% - 20px);
 }
 
-.slider-gl {
-    background-image: url(/home/s/Profile/NavSite/Development/home2/jamieweb-master/blog/dual-hosting-git-repositories-on-github-and-gitlab/jamieweb-gitlab.png);
-    height: 422px;
-    background-size: cover;
-    margin: auto;
+div.footer-middle {
+    margin: 0 auto;
+    padding: 0px 25px;
+}
+
+div.footer-item {
+    display: inline-block;
+    height: 36px;
+}
+
+div.footer-item:hover h4 {
+    text-decoration: underline;
+}
+
+div.footer-item img {
+    height: 32px;
+    width: 32px;
+    filter: invert(100);
+    vertical-align: middle;
+    padding-bottom: 4px;
+}
+
+div.footer-item h4 {
+    display: inline-block;
+    margin: 0px 0px 0px 4px;
+}
+
+span.penguin {
+    margin-left: 5px;
+    padding: 2.5px 3.5px;
+    border-radius: 27px;
+    background-color: white;
 }
 
 
 
 
-table.gl-fp {
-    width: 1000px;
-    border-collapse: collapse;
+
+
+
+
+
+
+div.view-all-button {
+    width: 200px;
+    margin: 20px auto;
+    padding: 3px;
+    border-radius: 3px;
+    color: white;
+    background-color: #59a2c7;
 }
 
-table.gl-fp th,table.gl-fp td {
-    padding: 6px;
-    border: 2px solid;
-}
-
-tr.gl-fp-header {
-    font-weight: bold;
-    background-color: lightgreen;
+div.view-all-button:hover h3 {
+    text-decoration: underline;
 }
 
 
 
 
 
+h5.footer-content {
+    margin-top: 8px;
+}
 
+h5.footer-content img {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    margin: 0px 3px;
+}
 
-
-
-
-
-
+h5.footer-content img.h1 {
+    width: 13px;
+    margin: 0px 6px;
+}
 
 
 
@@ -147,7 +137,7 @@ div.recents-tags p {
     src: url("/fonts/opensans/OpenSans-Regular.ttf");
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1049px) {
     nav {
         width: 1050px;
     }
@@ -549,28 +539,7 @@ p.tags span {
     margin-right: 1px;
 }
 
-footer {
-    clear: both;
-    margin: 0 auto;
-    width: 1000px;
-    text-align: center;
-}
 
-h5.footer-content {
-    margin-top: 8px;
-}
-
-h5.footer-content img {
-    vertical-align: middle;
-    width: 25px;
-    height: 25px;
-    margin: 0px 3px;
-}
-
-h5.footer-content img.h1 {
-    width: 13px;
-    margin: 0px 6px;
-}
 
 ul.spaced-list li {
     margin-bottom: 7px;
@@ -849,7 +818,50 @@ th.h1-scope-in-scope {
     font-size: 23px;
 }
 
+.ios6-slider {
+    background-image: url(/blog/ipad-mini-ios6/ios-6.png);
+    position: relative;
+    overflow: hidden;
+    width: 1000px;
+    height: 750px;
+}
 
+.ios9-slider {
+    background-image: url(/blog/ipad-mini-ios6/ios-9.png);
+    position: absolute;
+    resize: horizontal;
+    height: 750px;
+    min-width: 0;
+    max-width: 1000px;
+}
+
+.ios9-slider:before {
+    content: '\2194';
+    background: black;
+    position: absolute;
+    line-height: 750px;
+    top: 0;
+    right: 0;
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 16px;
+    color: white;
+    cursor: ew-resize;
+}
+
+.ios-slider {
+    position: relative;
+    resize: horizontal;
+    width: 505px;
+    height: 15px;
+    top: 50%;
+    left: 0px;
+    transform: scaleY(65);
+    transform-origin: center center;
+    min-width: 14px;
+    max-width: 1000px;
+    opacity: 0;
+}
 
 .subgraphcheck {
     display: none;

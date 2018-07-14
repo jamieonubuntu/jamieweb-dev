@@ -1,9 +1,11 @@
 <footer>
     <div class="footer">
         <div class="footer-column">
-            <h2><a href="/">JamieWeb</a></h2>
+            <h2><a href="/"><img class="footer-logo" src="/images/jamieweb.png">JamieWeb</a></h2>
+            <p><b><a href="/blog/">Blog</a> | <a href="/projects/">Projects</a> | <a href="/tools/">Tools</a> | <a href="/info/">Info</a></b></p>
+            <p class="footer-email"><b>Email:</b> <img class="two-mar-left" src="/images/jamie-jamieweb-4d4d4d.png"></p>
+            <p><b><a href="/contact/">Other Contact Info</a> | <a href="/security/">Security</a></b></p>
             <p>Copyright &copy; Jamie Scaife 2018</p>
-            <p>Powered by Linux<span class="penguin">&#x1f427;</span></p>
         </div>
         <div class="footer-column footer-middle">
             <h2>Links</h2>
@@ -39,13 +41,21 @@
             </a>
             <a href="/rss.xml" target="_blank">
                 <div class="footer-item">
-                    <img width="24px" src="/images/fontawesome/rss.svg">
+                    <img src="/images/fontawesome/rss.svg">
                     <h4>RSS Feed</h4>
                 </div>
             </a>
         </div>
         <div class="footer-column">
             <h2>Development</h2>
+            <ul class="footer-list">
+                <li><h4><a href="/development/">Overview</a></h4></li>
+                <li><h4><a href="https://github.com/jamieweb/jamieweb" target="_blank" rel="noopener">GitHub Repo</a></h4></li>
+                <li><h4><a href="https://gitlab.com/jamieweb/jamieweb" target="_blank" rel="noopener">GitLab Repo</a></h4></li>
+                <li><h4><a href="https://bitbucket.org/jamieweb/jamieweb/src/master" target="_blank" rel="noopener">Bitbucket Repo</a></h4></li>
+                <li><h4><a href="https://git.launchpad.net/jamieweb/" target="_blank" rel="noopener">Launchpad Repo</a></h4></li>
+                <li><h4><a href="https://travis-ci.org/jamieweb/jamieweb" target="_blank" rel="noopener">Travis-CI</a></h4></li>
+            </ul>
         </div>
     </div>
 </footer>
